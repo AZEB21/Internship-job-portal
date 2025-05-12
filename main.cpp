@@ -314,3 +314,56 @@ int main() {
         cout << "0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
+switch (choice) {
+        case 1:
+            student.registerUser();
+            break;
+        case 2:
+            poster.registerUser();
+            break;
+        case 3:
+            student.login();
+            currentUser = &student;
+            break;
+        case 4:
+            poster.login();
+            currentUser = &poster;
+            break;
+        case 5:
+            job.viewJobs();
+            break;
+        case 6:
+            if (currentUser == nullptr || dynamic_cast<Student*>(currentUser) == nullptr) {
+                cout << "You must login as a student first!\n";
+            }
+            else {
+                student.applyForJob();
+            }
+            break;
+        case 7:
+            if (currentUser == nullptr || dynamic_cast<Poster*>(currentUser) == nullptr) {
+                cout << "You must login as a Employer  first!\n";
+            }
+            else {
+                poster.postJob();
+            }
+            break;
+        case 8:
+            if (currentUser == nullptr || dynamic_cast<Poster*>(currentUser) == nullptr) {
+                cout << "You must login as a Employer  first!\n";
+            }
+            else {
+                poster.viewApplications();
+            }
+            break;
+        case 0:
+            cout << "Goodbye!\n";
+            break;
+        default:
+            cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
+}
+
