@@ -15,7 +15,7 @@ using namespace sql::mysql;
 
 class Database {
 public:
-    static Connection* getConnection() {
+    Connection* getConnection() {
         MySQL_Driver* driver = get_mysql_driver_instance();
         return driver->connect("tcp://127.0.0.1:3306", "root", "your_mysql_password");
     }
@@ -43,7 +43,8 @@ public:
         getline(cin, password);
 
         try {
-            Connection* con = Database::getConnection();
+            Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO students (name, email, password) VALUES (?, ?, ?)"  );
@@ -68,7 +69,8 @@ void login() override {
         cin >> inputPassword;
 
         try {
-            Connection* con = Database::getConnection();
+             Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT * FROM students WHERE email = ? AND password = ?"
@@ -108,7 +110,8 @@ void login() override {
         getline(cin, resumePath);
 
         try {
-            Connection* con = Database::getConnection();
+             Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES (?, ?, ?, ?)");
@@ -145,7 +148,7 @@ public:
         getline(cin, company);
 
         try {
-            Connection* con = Database::getConnection();
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO posters (name, email, company, password) VALUES (?, ?, ?, ?)"
@@ -171,7 +174,8 @@ void login() override {
         cin >> inputPassword;
 
         try {
-            Connection* con = Database::getConnection();
+             Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT * FROM posters WHERE email = ? AND password = ?"
@@ -214,7 +218,8 @@ void login() override {
         getline(cin, location);
 
         try {
-            Connection* con = Database::getConnection();
+             Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             sql::PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES (?, ?, ?, ?, ?, ?)");
@@ -235,7 +240,8 @@ void login() override {
     }
             void viewApplications() {
         try {
-            Connection* con = Database::getConnection();
+             Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT a.student_email, j.title, a.applied_at, a.skills, a.resume_path "
@@ -268,7 +274,8 @@ class Job {
 public:
     void viewJobs() {
         try {
-            Connection* con = Database::getConnection();
+             Database DB;
+            Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             Statement* stmt = con->createStatement();
             ResultSet* res = stmt->executeQuery("SELECT job_id, title, company, location FROM jobs");
@@ -310,7 +317,7 @@ int main() {
         cout << "5. View Jobs\n";
         cout << "6. Apply for Job (Student)\n";
         cout << "7. Post Job (Employer  Only)\n";
-        cout << "8. View Applications to Your Jobs (Poster Only)\n";
+        cout << "8. View Applications to Your Jobs (Employer Only)\n";
         cout << "0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
