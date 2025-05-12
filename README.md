@@ -6,6 +6,16 @@ This is a C++ console-based Internship and Job Portal system connected to a MySQ
 It allows students to register, log in, and apply for jobs.Employers can post job opportunities and view applications from students.
 
 
+                   Group MEMBER Name
+							Name....................ID
+			        1.AZEB YIRGA..............ETS0215/16
+					    2.BANCHIAMLAK GOLLA.......ETSO221/16
+			        3.BAMLAK CHERNET.........ETS0220/16
+							4.ANENI KIDANU............ETS0179
+			        5.AZARIA ABNET.............ETS0211/16
+					    6.ARSEMA MENBERU............ETS0190/16
+
+
                Features
  
  Student Registration/Login
