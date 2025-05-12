@@ -93,3 +93,72 @@ void login() override {
     }
 
     string getEmail() { return email; }
+    void applyForJob() {
+        int jobId;
+        string skills, resumePath;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter Job ID to apply for: ";
+        cin >> jobId;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter your skills: ";
+        getline(cin, skills);
+        cout << "Please Enter your valid resume Google Drive link (e.g. https://drive.google.com/...): ";
+        getline(cin, resumePath);
+
+        try {
+            sql::Connection* con = Database::getConnection();
+            con->setSchema("internship_portal");
+            sql::PreparedStatement* pstmt = con->prepareStatement(
+                "INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES (?, ?, ?, ?)"
+            );
+            pstmt->setString(1, getEmail());
+            pstmt->setInt(2, jobId);
+            pstmt->setString(3, skills);
+            pstmt->setString(4, resumePath);
+            pstmt->execute();
+            cout << "Application submitted successfully!\n";
+            delete pstmt;
+            delete con;
+        }
+        catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+};
+
+class Poster : public User {
+private:
+    string email;
+
+public:
+    void registerUser() override {
+        string name, company, password;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter Employer Name: ";
+        getline(cin, name);
+        cout << "Enter Email: ";
+        getline(cin, email);
+        cout << "Enter Password: ";
+        getline(cin, password);
+        cout << "Enter Company Name: ";
+        getline(cin, company);
+
+        try {
+            sql::Connection* con = Database::getConnection();
+            con->setSchema("internship_portal");
+            sql::PreparedStatement* pstmt = con->prepareStatement(
+                "INSERT INTO posters (name, email, company, password) VALUES (?, ?, ?, ?)"
+            );
+            pstmt->setString(1, name);
+            pstmt->setString(2, email);
+            pstmt->setString(3, company);
+            pstmt->setString(4, password);
+            pstmt->execute();
+            cout << "Employer registered successfully!\n";
+            delete pstmt;
+            delete con;
+        }
+        catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
