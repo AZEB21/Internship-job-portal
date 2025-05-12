@@ -198,7 +198,7 @@ void login() override {
 
     string getEmail() { return email; }
 
-    void postJob() {
+     void postJob() {
         string title, description, company, skills, location;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Enter Job Title: ";
@@ -228,11 +228,11 @@ void login() override {
             cout << "Job posted successfully!\n";
             delete pstmt;
             delete con;
-        }         catch (sql::SQLException& e) {
+        }
+        catch (sql::SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
-
             void viewApplications() {
         try {
             sql::Connection* con = Database::getConnection();
