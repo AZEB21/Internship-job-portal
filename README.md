@@ -7,13 +7,13 @@ It allows students to register, log in, and apply for jobs.Employers can post jo
 
 
                    Group MEMBER Name
-							Name....................ID
+				  Name....................ID
 			        1.AZEB YIRGA..............ETS0215/16
-					    2.BANCHIAMLAK GOLLA.......ETSO221/16
+				2.BANCHIAMLAK GOLLA.......ETSO221/16
 			        3.BAMLAK CHERNET.........ETS0220/16
-							4.ANENI KIDANU............ETS0179
+				4.ANENI KIDANU............ETS0179
 			        5.AZARIA ABNET.............ETS0211/16
-					    6.ARSEMA MENBERU............ETS0190/16
+				6.ARSEMA MENBERU............ETS0190/16
 
 
                Features
