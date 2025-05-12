@@ -14,7 +14,7 @@ class Database {
 public:
     static sql::Connection* getConnection() {
         sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
-        return driver->connect("tcp://127.0.0.1:3306", "root", "mysql_password");
+        return driver->connect("tcp://127.0.0.1:3306", "root", "your_mysql_password");
     }
 };
 
