@@ -290,10 +290,8 @@ public:
         }
     }
 };
-        catch (sql::SQLException& e) {
-            cerr << "Error: " << e.what() << endl;
-        }
-    }
+       
+    
 int main() {
     int choice;
     Student student;
