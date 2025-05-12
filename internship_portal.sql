@@ -40,4 +40,30 @@ CREATE TABLE  applications (
     FOREIGN KEY (job_id) REFERENCES jobs(job_id)
 );
 
+-- Sample data for the students table
+INSERT INTO students (name, email, skills, resume_path) VALUES
+    ('Azeb', 'azeb@example.com', 'C++, MySQL, HTML, CSS, JavaScript', 'https://drive.google.com/file1'),
+    ('Arsema', 'arsema@example.com', 'Python, SQL, Data Structures', 'https://drive.google.com/file2'),
+    ('Azaria', 'azaria@example.com', 'Java, Spring Boot, SQL', 'https://drive.google.com/file3'),
+    ('Bamlak', 'bamlak@example.com', 'C, C++, Git, Agile', 'https://drive.google.com/file4');
+
+-- Sample data for the posters table
+INSERT INTO posters (email, name, company) VALUES
+    ('selam@example.com', 'Selam', 'TechCo'),
+    ('haymanot@example.com', 'Haymanot', 'SoftSolutions'),
+    ('mahlet@example.com', 'Mahlet', 'DevPartners');
+
+-- Sample data for the jobs table
+INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES
+    ('Software Developer', 'Developing backend systems in C++ and MySQL.', 'TechCo', 'C++, MySQL', 'Addis Ababa', 'selam@example.com'),
+    ('Data Analyst', 'Analyzing data and creating reports using Python and SQL.', 'SoftSolutions', 'Python, SQL', 'Addis Ababa', 'haymanot@example.com'),
+    ('Full Stack Developer', 'Building web applications using Java and Spring Boot.', 'DevPartners', 'Java, Spring Boot', 'Addis Ababa', 'mahlet@example.com');
+
+-- Sample data for the applications table
+INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES
+    ('azeb@example.com', 1, 'C++, MySQL', 'https://drive.google.com/resume_azeb'),
+    ('arsema@example.com', 2, 'Python, SQL', 'https://drive.google.com/resume_arsema'),
+    ('azaria@example.com', 3, 'Java, Spring Boot', 'https://drive.google.com/resume_azaria'),
+    ('bamlak@example.com', 1, 'C++, MySQL', 'https://drive.google.com/resume_bamlak');
+
 
