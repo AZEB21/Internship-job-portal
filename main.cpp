@@ -108,8 +108,7 @@ void login() override {
             sql::Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
             sql::PreparedStatement* pstmt = con->prepareStatement(
-                "INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES (?, ?, ?, ?)"
-            );
+                "INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES (?, ?, ?, ?)");
             pstmt->setString(1, getEmail());
             pstmt->setInt(2, jobId);
             pstmt->setString(3, skills);
@@ -215,8 +214,7 @@ void login() override {
             sql::Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
             sql::PreparedStatement* pstmt = con->prepareStatement(
-                "INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES (?, ?, ?, ?, ?, ?)"
-            );
+                "INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES (?, ?, ?, ?, ?, ?)");
             pstmt->setString(1, title);
             pstmt->setString(2, description);
             pstmt->setString(3, company);
