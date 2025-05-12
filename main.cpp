@@ -198,7 +198,41 @@ void login() override {
 
     string getEmail() { return email; }
 
-    
+      void postJob() {
+        string title, description, company, skills, location;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter Job Title: ";
+        getline(cin, title);
+        cout << "Enter Job Description: ";
+        getline(cin, description);
+        cout << "Enter Company Name: ";
+        getline(cin, company);
+        cout << "Enter Required Skills: ";
+        getline(cin, skills);
+        cout << "Enter Job Location: ";
+        getline(cin, location);
+
+        try {
+            sql::Connection* con = Database::getConnection();
+            con->setSchema("internship_portal");
+            sql::PreparedStatement* pstmt = con->prepareStatement(
+                "INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES (?, ?, ?, ?, ?, ?)"
+            );
+            pstmt->setString(1, title);
+            pstmt->setString(2, description);
+            pstmt->setString(3, company);
+            pstmt->setString(4, skills);
+            pstmt->setString(5, location);
+            pstmt->setString(6, getEmail());
+            pstmt->execute();
+            cout << "Job posted successfully!\n";
+            delete pstmt;
+            delete con;
+        }
+        catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
             void viewApplications() {
         try {
             sql::Connection* con = Database::getConnection();
