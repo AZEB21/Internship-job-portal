@@ -9,11 +9,14 @@
 #include <mysql_connection.h>
 
 using namespace std;
+using namespace sql;
+using namespace sql::mysql;
+
 
 class Database {
 public:
-    static sql::Connection* getConnection() {
-        sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
+    static Connection* getConnection() {
+        MySQL_Driver* driver = get_mysql_driver_instance();
         return driver->connect("tcp://127.0.0.1:3306", "root", "your_mysql_password");
     }
 };
@@ -40,9 +43,9 @@ public:
         getline(cin, password);
 
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO students (name, email, password) VALUES (?, ?, ?)"  );
             pstmt->setString(1, name);
             pstmt->setString(2, email);
@@ -52,7 +55,7 @@ public:
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
@@ -65,14 +68,14 @@ void login() override {
         cin >> inputPassword;
 
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT * FROM students WHERE email = ? AND password = ?"
             );
             pstmt->setString(1, email);
             pstmt->setString(2, inputPassword);
-            sql::ResultSet* res = pstmt->executeQuery();
+            ResultSet* res = pstmt->executeQuery();
 
             if (res->next()) {
                 cout << "Logged in as Student: " << email << endl;
@@ -86,7 +89,7 @@ void login() override {
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
@@ -105,9 +108,9 @@ void login() override {
         getline(cin, resumePath);
 
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES (?, ?, ?, ?)");
             pstmt->setString(1, getEmail());
             pstmt->setInt(2, jobId);
@@ -118,7 +121,7 @@ void login() override {
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
@@ -142,9 +145,9 @@ public:
         getline(cin, company);
 
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO posters (name, email, company, password) VALUES (?, ?, ?, ?)"
             );
             pstmt->setString(1, name);
@@ -156,7 +159,7 @@ public:
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
@@ -168,14 +171,14 @@ void login() override {
         cin >> inputPassword;
 
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT * FROM posters WHERE email = ? AND password = ?"
             );
             pstmt->setString(1, email);
             pstmt->setString(2, inputPassword);
-            sql::ResultSet* res = pstmt->executeQuery();
+            ResultSet* res = pstmt->executeQuery();
 
             if (res->next()) {
                 cout << "Logged in as Employer : " << email << endl;
@@ -189,7 +192,7 @@ void login() override {
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
@@ -211,7 +214,7 @@ void login() override {
         getline(cin, location);
 
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
             sql::PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES (?, ?, ?, ?, ?, ?)");
@@ -226,21 +229,21 @@ void login() override {
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
             void viewApplications() {
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "SELECT a.student_email, j.title, a.applied_at, a.skills, a.resume_path "
                 "FROM applications a JOIN jobs j ON a.job_id = j.job_id "
                 "WHERE j.poster_email = ?"
             );
             pstmt->setString(1, getEmail());
-            sql::ResultSet* res = pstmt->executeQuery();
+            ResultSet* res = pstmt->executeQuery();
 
             cout << "\nApplications to Your Jobs:\n";
             while (res->next()) {
@@ -255,7 +258,7 @@ void login() override {
             delete pstmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
@@ -265,10 +268,10 @@ class Job {
 public:
     void viewJobs() {
         try {
-            sql::Connection* con = Database::getConnection();
+            Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
-            sql::Statement* stmt = con->createStatement();
-            sql::ResultSet* res = stmt->executeQuery("SELECT job_id, title, company, location FROM jobs");
+            Statement* stmt = con->createStatement();
+            ResultSet* res = stmt->executeQuery("SELECT job_id, title, company, location FROM jobs");
 
             cout << "\nAvailable Jobs:\n";
             while (res->next()) {
@@ -282,7 +285,7 @@ public:
             delete stmt;
             delete con;
         }
-        catch (sql::SQLException& e) {
+        catch (SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
     }
