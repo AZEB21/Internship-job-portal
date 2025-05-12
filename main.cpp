@@ -229,6 +229,63 @@ void login() override {
             delete pstmt;
             delete con;
         }
+            void viewApplications() {
+        try {
+            sql::Connection* con = Database::getConnection();
+            con->setSchema("internship_portal");
+            sql::PreparedStatement* pstmt = con->prepareStatement(
+                "SELECT a.student_email, j.title, a.applied_at, a.skills, a.resume_path "
+                "FROM applications a JOIN jobs j ON a.job_id = j.job_id "
+                "WHERE j.poster_email = ?"
+            );
+            pstmt->setString(1, getEmail());
+            sql::ResultSet* res = pstmt->executeQuery();
+
+            cout << "\nApplications to Your Jobs:\n";
+            while (res->next()) {
+                cout << "Student Email: " << res->getString("student_email")
+                    << ", Job Title: " << res->getString("title")
+                    << ", Applied At: " << res->getString("applied_at")
+                    << ", Skills: " << res->getString("skills")
+                    << ", Resume: " << res->getString("resume_path") << endl;
+            }
+
+            delete res;
+            delete pstmt;
+            delete con;
+        }
+        catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+};
+
+class Job {
+public:
+    void viewJobs() {
+        try {
+            sql::Connection* con = Database::getConnection();
+            con->setSchema("internship_portal");
+            sql::Statement* stmt = con->createStatement();
+            sql::ResultSet* res = stmt->executeQuery("SELECT job_id, title, company, location FROM jobs");
+
+            cout << "\nAvailable Jobs:\n";
+            while (res->next()) {
+                cout << "Job ID: " << res->getInt("job_id")
+                    << ", Title: " << res->getString("title")
+                    << ", Company: " << res->getString("company")
+                    << ", Location: " << res->getString("location") << endl;
+            }
+
+            delete res;
+            delete stmt;
+            delete con;
+        }
+        catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+};
         catch (sql::SQLException& e) {
             cerr << "Error: " << e.what() << endl;
         }
