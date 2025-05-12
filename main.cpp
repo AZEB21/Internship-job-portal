@@ -148,6 +148,7 @@ public:
         getline(cin, company);
 
         try {
+             Database DB;
             Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
             PreparedStatement* pstmt = con->prepareStatement(
