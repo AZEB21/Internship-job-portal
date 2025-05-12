@@ -43,8 +43,7 @@ public:
             sql::Connection* con = Database::getConnection();
             con->setSchema("internship_portal");
             sql::PreparedStatement* pstmt = con->prepareStatement(
-                "INSERT INTO students (name, email, password) VALUES (?, ?, ?)"
-            );
+                "INSERT INTO students (name, email, password) VALUES (?, ?, ?)"  );
             pstmt->setString(1, name);
             pstmt->setString(2, email);
             pstmt->setString(3, password);
