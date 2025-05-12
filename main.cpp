@@ -57,3 +57,39 @@ public:
             cerr << "Error: " << e.what() << endl;
         }
     }
+
+void login() override {
+        string inputPassword;
+        cout << "Enter Student Email: ";
+        cin >> email;
+        cout << "Enter Password: ";
+        cin >> inputPassword;
+
+        try {
+            sql::Connection* con = Database::getConnection();
+            con->setSchema("internship_portal");
+            sql::PreparedStatement* pstmt = con->prepareStatement(
+                "SELECT * FROM students WHERE email = ? AND password = ?"
+            );
+            pstmt->setString(1, email);
+            pstmt->setString(2, inputPassword);
+            sql::ResultSet* res = pstmt->executeQuery();
+
+            if (res->next()) {
+                cout << "Logged in as Student: " << email << endl;
+            }
+            else {
+                cout << "Invalid email or password.\n";
+                email = "";
+            }
+
+            delete res;
+            delete pstmt;
+            delete con;
+        }
+        catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+
+    string getEmail() { return email; }
