@@ -228,7 +228,11 @@ void login() override {
             cout << "Job posted successfully!\n";
             delete pstmt;
             delete con;
+        }         catch (sql::SQLException& e) {
+            cerr << "Error: " << e.what() << endl;
         }
+    }
+
             void viewApplications() {
         try {
             sql::Connection* con = Database::getConnection();
