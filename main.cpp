@@ -290,3 +290,27 @@ public:
             cerr << "Error: " << e.what() << endl;
         }
     }
+int main() {
+    int choice;
+    Student student;
+    Poster poster;
+    Job job;
+    User* currentUser = nullptr;
+
+    cout << "\n================================================================================\n";
+    cout << "               Welcome to the Student Internship & Job Portal\n";
+    cout << "================================================================================\n";
+
+    do {
+        cout << "\nInternship & Job Portal\n";
+        cout << "1. Register as Student\n";
+        cout << "2. Register as Employer \n";
+        cout << "3. Login as Student\n";
+        cout << "4. Login as Employer \n";
+        cout << "5. View Jobs\n";
+        cout << "6. Apply for Job (Student)\n";
+        cout << "7. Post Job (Employer  Only)\n";
+        cout << "8. View Applications to Your Jobs (Poster Only)\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
