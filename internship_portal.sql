@@ -40,3 +40,16 @@ CREATE TABLE  applications (
     FOREIGN KEY (job_id) REFERENCES jobs(job_id)
 );
 
+RENAME TABLE posters TO posters_private;
+CREATE VIEW posters AS
+SELECT email, name, company
+FROM posters_private;
+select * from posters;
+
+RENAME TABLE students TO students_private;
+CREATE VIEW students AS
+SELECT email, name 
+FROM students_private;
+
+
+select *from  students;
