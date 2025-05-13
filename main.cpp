@@ -222,7 +222,7 @@ void login() override {
              Database DB;
             Connection* con = DB.getConnection();
             con->setSchema("internship_portal");
-            sql::PreparedStatement* pstmt = con->prepareStatement(
+            PreparedStatement* pstmt = con->prepareStatement(
                 "INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES (?, ?, ?, ?, ?, ?)");
             pstmt->setString(1, title);
             pstmt->setString(2, description);
