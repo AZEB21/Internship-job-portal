@@ -55,9 +55,12 @@ INSERT INTO posters (email, name, company) VALUES
 
 -- Sample data for the jobs table
 INSERT INTO jobs (title, description, company, required_skills, location, poster_email) VALUES
-    ('Software Developer', 'Developing backend systems in C++ and MySQL.', 'TechCo', 'C++, MySQL', 'Addis Ababa', 'selam@example.com'),
-    ('Data Analyst', 'Analyzing data and creating reports using Python and SQL.', 'SoftSolutions', 'Python, SQL', 'Addis Ababa', 'haymanot@example.com'),
-    ('Full Stack Developer', 'Building web applications using Java and Spring Boot.', 'DevPartners', 'Java, Spring Boot', 'Addis Ababa', 'mahlet@example.com');
+    ('Software Developer', 'Developing backend systems in C++ and MySQL.',
+    'TechCo', 'C++, MySQL', 'Addis Ababa', 'selam@example.com'),
+    ('Data Analyst', 'Analyzing data and creating reports using Python and SQL.',
+    'SoftSolutions', 'Python, SQL', 'Addis Ababa', 'haymanot@example.com'),
+    ('Full Stack Developer', 'Building web applications using Java and Spring Boot.',
+    'DevPartners', 'Java, Spring Boot', 'Addis Ababa', 'mahlet@example.com');
 
 -- Sample data for the applications table
 INSERT INTO applications (student_email, job_id, skills, resume_path) VALUES
